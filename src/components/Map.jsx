@@ -5,20 +5,13 @@ import { Marker } from 'react-leaflet';
 import { Popup } from 'react-leaflet';
 // import { useMapEvents } from 'react-leaflet';
 import "../styles/table.css"
+
+
+
 function Map(props) {
     const [position, setPosition] = useState([props.latitude,props.longitude])
-    // const map = useMapEvents({
-    //   onClick() {
-    //     map.locate()
-    //   },
-    //   locationfound(e) {
-    //     setPosition(e.latlng)
-    //     map.flyTo(e.latlng, map.getZoom())
-    //   },
-    // })
-
     return(
-        <div className='map-container'>
+        <div className='map-container' id="Location">
             <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{
                 backgroundColor: "white",
                 width:"100%",

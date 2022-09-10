@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    gap:15px;
+    gap:10px;
     padding:20px;
 }
 .capture-interfaces-box{
@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    gap:25px;
+    gap:10px;
 }
 .table-box{
     width: 100%;

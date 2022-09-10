@@ -5,7 +5,6 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import "../styles/table.css";
-import {data} from "./data.jsx"
 import { TableRow } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
@@ -91,16 +90,25 @@ export default function IPResultsTable(props) {
           </Table>
         </TableContainer>
       </Paper>
-      {props.data.length===0 && 
-        <div style={{textAlign:"center",fontSize:"xx-large",width:"100%",color:"red"}}> NO IP's Found</div>
+      {!props.isAnalysing  && props.data.length===0 &&  !props.isCapturing && !props.didCapturedOnce && 
+        <div style={{textAlign:"center",fontSize:"xx-large",width:"100%",color:"red"}}>Please Start Capturing To See Results</div>
       }
+      { !props.isAnalysing  &&  props.data.length===0 &&  props.isCapturing && !props.didCapturedOnce &&
+        <div style={{textAlign:"center",fontSize:"xx-large",width:"100%",color:"black"}}> Fetching IP'S ...</div>
+      }
+      {!props.isAnalysing  &&  props.didCapturedOnce && props.data.length===0 && props.isCapturing &&
+        <div style={{textAlign:"center",fontSize:"xx-large",width:"100%",color:"red"}}> NO IP's Found Will Scan For More</div>
+
+      }
+        
+        {props.isAnalysing && <div style={{textAlign:"center",fontSize:"xx-large",width:"100%",color:"red"}}>Wait For Results</div> }
       <div className='location-heading'>
         <p> Location on Map</p>
       </div>
-      {props.data.length===0 && 
+      {!props.isAnalysing  && props.data.length===0 && 
         <div style={{textAlign:"center",fontSize:"xx-large",width:"100%",color:"red"}}> NO Location Selected</div>
       }
-      {props.data
+      {props.data && props.data
         .map(({ipAddr,isp,organization,asn,latitude,longitude,country,region,city,zipCode},index) => {
           if(index===selectedIndex){
             return(

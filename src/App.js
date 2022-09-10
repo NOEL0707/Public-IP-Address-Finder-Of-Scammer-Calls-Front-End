@@ -1,4 +1,5 @@
 import './App.css';
+import Footer from './components/Footer';
 import IPResults from './components/IPResults';
 import ResponsiveAppBar from './components/NavBar';
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <ResponsiveAppBar/>
       <IPResults/>
+      <Footer/>
     </div>
   );
 }

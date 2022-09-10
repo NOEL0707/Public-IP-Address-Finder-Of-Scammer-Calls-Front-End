@@ -10,8 +10,8 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
-const pages = ['Products', 'Pricing', 'Blog'];
+import AnchorLink from 'react-anchor-link-smooth-scroll'
+const pages = ['IP Addresses', 'Location', 'NMAP Scanneer'];
 
 
 const ResponsiveAppBar = () => {
@@ -23,10 +23,9 @@ const ResponsiveAppBar = () => {
   };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    console.log("500")
+    window.scrollTo(0,600);
   };
-
- 
-
   return (
     <AppBar position="static" style={{background:"black"}}>
       <Container maxWidth="xl" style={{display:"flex",justifyContent:"center,",background:"black"}}>
@@ -79,11 +78,21 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+
+                <AnchorLink href={"IP Address"}>
+                    <MenuItem key={"IP Address"} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center" 
+                      >{"IP Address"}</Typography>
+                    </MenuItem>
+                </AnchorLink>
+                <AnchorLink href={"Location"}>
+                    <MenuItem key={"Location"} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center" 
+                      >{"Location"}</Typography>
+                    </MenuItem>
+                </AnchorLink>
+
+
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -116,7 +125,6 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
-
         </Toolbar>
       </Container>
     </AppBar>
