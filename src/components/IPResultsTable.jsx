@@ -82,8 +82,9 @@ export default function IPResultsTable(props) {
             <TableBody>
               {props.data.length>0 && props.data
                 .map(({ipAddr,isp},index) => {
+                  console.log(props.possibleIP);
                   return (
-                    <IPResultsTableRow key={index} ipAddress={ipAddr} possibleISP={isp} index={index} sendSelectedindex={getSelectedIndex}/>
+                    <IPResultsTableRow key={index} ipAddress={ipAddr} possibleISP={isp} index={index} sendSelectedindex={getSelectedIndex} possibleIP={props.possibleIP}/>
                   );
                 })}
             </TableBody>
@@ -109,11 +110,11 @@ export default function IPResultsTable(props) {
         <div style={{textAlign:"center",fontSize:"xx-large",width:"100%",color:"red"}}> NO Location Selected</div>
       }
       {props.data && props.data
-        .map(({ipAddr,isp,organization,asn,latitude,longitude,country,region,city,zipCode},index) => {
+        .map(({ipAddr,isp,organization,asn,latitude,longitude,country,region,city,zipCode,dateTime},index) => {
           if(index===selectedIndex){
             return(
               <div key={index} className="location-details">
-                <LeftBox ipAddr={ipAddr} isp={isp} organization={organization} asn={asn}/>
+                <LeftBox ipAddr={ipAddr} isp={isp} organization={organization} asn={asn} dateTime={dateTime}/>
                 <Map latitude={latitude} longitude={longitude}/>
                 <RightBox latitude={latitude} longitude={longitude} country={country} region={region} city={city} zipCode={zipCode}/>
               </div>

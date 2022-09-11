@@ -29,6 +29,10 @@ function LeftBox(props) {
                 <p className='heading-name'> ASN</p>
                 <p className='heading-value'>{props.asn}</p>
             </div>
+            <div className='content'>
+                <p className='heading-name'>Date Time</p>
+                <p className='heading-value'>{props.dateTime}</p>
+            </div>
         </div>
     );
 }

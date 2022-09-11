@@ -26,10 +26,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function IPResultsTableRow(props) {
   function handleViewLocation() {
     props.sendSelectedindex(props.index);
+    window.scrollTo(0,800);
+
   }
   return (
     <StyledTableRow hover role="checkbox" tabIndex={-1} >
-      <StyledTableCell key={props.ipAddress} align={"center"} height="50px">
+      <StyledTableCell key={props.ipAddress} align={"center"} height="50px" style={{color:props.possibleIP.trim()===props.ipAddress.trim()?"red":"green"}}>
         {props.ipAddress}
       </StyledTableCell>
       <StyledTableCell key={props.PossibleISP} align={"center"} height="50px">

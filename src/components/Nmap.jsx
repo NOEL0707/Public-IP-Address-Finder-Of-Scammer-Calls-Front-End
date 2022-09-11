@@ -47,7 +47,7 @@ function Nmap(props) {
     }
     return (
         <div style={{display:'flex',width:"100%",flexDirection:"column",alignItems:"center"}}>
-            <div className='capture-interfaces-box' style={{gap:"2px"}}>
+            <div className='capture-interfaces-box' style={{gap:"2px",height:"50px"}}>
                 <TextField id="outlined-basic" label="IP-Address" variant="outlined" onChange={handleChangeIP}/>
                 <FormControl style={{width:"80%"}}>
                     <InputLabel id="demo-simple-select-label">Select ScanType</InputLabel>
@@ -58,17 +58,20 @@ function Nmap(props) {
                     label="Select Interfaces"
                     onChange={handleChangeScanType}
                     >
-                        <MenuItem value={1}>"1"</MenuItem>
-                        <MenuItem value={2}>"2"</MenuItem>
+                        <MenuItem value={1}>Intense Scan</MenuItem>
+                        <MenuItem value={2}>Basic Scan</MenuItem>
                     </Select>
                 </FormControl>
-                {<Button variant="contained" onClick={handleStartScanning} style={{width:"400px",background:"black"}} fullHeight>Start Scanning</Button>}
+                {<Button variant="contained" onClick={handleStartScanning} style={{width:"400px",background:"black",height:"50px"}} fullHeight>Start Scanning</Button>}
             </div>
             <div style={{width:"80%",height:"auto",boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px",background:"rgb(30 40 58/var(--tw-text-opacity))"}}>
                 {isScanning &&<div style={{width:"100%",height:"100%",display:"flex",justifyContent:"center",alignItems:"center",color:"grey"}}>
                     <p style={{color:"grey",fontSize:"x-large"}}>Scanning Please Wait For Results...</p>
                 </div>}
-                {!isScanning && <div style={{color:"white",width:"100%",height:"auto",margin:"auto"}}> 
+                {data.length===0 && !isScanning && <div style={{width:"100%",height:"100%",display:"flex",justifyContent:"center",alignItems:"center",color:"grey"}}>
+                <p style={{color:"grey",fontSize:"x-large"}}>No Results Found/Press Scan Button</p>
+                </div>}
+                {data.length!==0 &&!isScanning && <div style={{color:"white",width:"100%",height:"auto",margin:"auto"}}> 
                 <JSONPretty id="json-pretty" data={data}></JSONPretty>
                 </div>}
             </div>

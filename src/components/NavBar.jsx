@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import AnchorLink from 'react-anchor-link-smooth-scroll'
-const pages = ['IP Addresses', 'Location', 'NMAP Scanneer'];
+const pages = ['IP Addresses', 'Location', 'NMAP Scanneer','PhoneInfoga'];
 
 
 const ResponsiveAppBar = () => {
@@ -21,10 +21,14 @@ const ResponsiveAppBar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (e) => {
+    console.log(e.target.value);
     setAnchorElNav(null);
-    console.log("500")
-    window.scrollTo(0,600);
+    let page=e.target.value
+    if(page===pages[0]) window.scrollTo(0,100);
+    if(page===pages[1]) window.scrollTo(0,800);
+    if(page===pages[2]) window.scrollTo(0,1000);
+    if(page===pages[3]) window.scrollTo(0,2000);
   };
   return (
     <AppBar position="static" style={{background:"black"}}>
@@ -118,6 +122,7 @@ const ResponsiveAppBar = () => {
             {pages.map((page) => (
               <Button
                 key={page}
+                value={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >

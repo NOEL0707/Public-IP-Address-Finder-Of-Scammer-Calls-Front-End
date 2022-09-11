@@ -9,8 +9,8 @@ import Select from '@mui/material/Select';
 import axios from "axios";
 import { useEffect } from 'react';
 import FileUploader from './FileUploader';
-import { Divider } from '@mui/material';
 import Nmap from './Nmap';
+import PhoneInfoga from './PhoneInfoga';
 
 
 function IPResults(props) {
@@ -20,6 +20,7 @@ function IPResults(props) {
     const [didCapturedOnce,setDidCapturedOnce]=React.useState(false);
     const [displayCapture,setDisplayCapture]=React.useState(true);
     const [isAnalysing,setIsAnalysing]=React.useState(false);
+    const [possibleIP,setPossibleIP]=React.useState("");
     const handleIsAnalysing=(x)=>{
         setIsAnalysing(x);
     }
@@ -30,8 +31,13 @@ function IPResults(props) {
         console.log("requested")
         try {
             const res=await axios.get("http://localhost:4444/getIpResults");
+            const res1=await axios.get("http://localhost:4444/getscammerip");
+            console.log("res1",res1.data.result);
             console.log(res.data.data);
-            setIPData(res.data.data);
+            const unique = [...new Map(res.data.data.map((m) => [m.ipAddr, m])).values()];
+            console.log(unique);
+            setIPData(unique);
+            setPossibleIP(res1.data.result);
             setDidCapturedOnce(true);
 
 
@@ -132,16 +138,16 @@ function IPResults(props) {
                         <MenuItem value={"Ethernet"}>Ethernet</MenuItem>
                     </Select>
                 </FormControl>
-                {!isCapturing && <Button variant="contained" onClick={handleStartCapturing} style={{width:"400px",background:"black"}} fullHeight>Start Capturing</Button>}
-                {isCapturing && <Button variant="contained" onClick={handleStopCapturing} style={{width:"400px",background:"black"}} fullHeight>Stop Capturing</Button>}
+                {!isCapturing && <Button variant="contained" onClick={handleStartCapturing} style={{width:"400px",background:"black",height:"50px"}} >Start Capturing</Button>}
+                {isCapturing && <Button variant="contained" onClick={handleStopCapturing} style={{width:"400px",background:"black",height:"50px"}} >Stop Capturing</Button>}
             </div>}
-            {!displayCapture && <FileUploader didClickOnAnalyse={handleAnalyse} setIsAnalysing={handleIsAnalysing}/>}
+            {!displayCapture && <div className='capture-interfaces-box'> <FileUploader didClickOnAnalyse={handleAnalyse} setIsAnalysing={handleIsAnalysing}/></div>}
 
             <div className='location-heading'>
                 <p> Filtered IP Addresses</p>
             </div>
             <div className='table-box'>
-                <IPResultsTable data={ipData} isCapturing={isCapturing} didCapturedOnce={didCapturedOnce} isAnalysing={isAnalysing}/>
+                <IPResultsTable data={ipData} isCapturing={isCapturing} didCapturedOnce={didCapturedOnce} isAnalysing={isAnalysing} possibleIP={possibleIP}/>
             </div>
             <div className='location-heading'>
                 <p>Nmap Scan</p>
@@ -149,7 +155,12 @@ function IPResults(props) {
             <div className='table-box'>
                 <Nmap/>
             </div>
-
+            <div className='location-heading'>
+                <p>PhoneInfoga</p>
+            </div>
+            <div className='table-box'>
+                <PhoneInfoga/>
+            </div>
         </div>
     );
 }
